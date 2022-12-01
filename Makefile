@@ -5,10 +5,10 @@ ARDUINO_USB ?= /dev/ttyUSB0
 
 all: led.hex
 
-led.hex: led
-	avr-objcopy -O ihex -R .eeprom led led.hex
+led.hex: led.elf
+	avr-objcopy -O ihex -R .eeprom -R .fuse led.elf led.hex
 
-led: led.o
+led.elf: led.o
 	avr-gcc $(LDFLAGS) -o $@ $^
 
 led.o: led.c
